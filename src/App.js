@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Instagram Clone</h1>
+        <h1>Instaclone</h1>
       </header>
       <main>
         <form onSubmit={handlePostSubmit} className="post-form">
