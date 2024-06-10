@@ -1,0 +1,40 @@
+[
+    {
+      "id": 1,
+      "user": "username1",
+      "caption": "This is my first post!",
+      "image": "path/to/image1.jpg",
+      "likes": 10,
+      "comments": [
+        {
+          "user": "username2",
+          "comment": "Cool post!"
+        },
+        {
+          "user": "username3",
+          "comment": "Nice one!"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "user": "username2",
+      "caption": "Beautiful day at the beach!",
+      "image": "path/to/image2.jpg",
+      "likes": 5,
+      "comments": []
+    },
+    {
+      "id": 3,
+      "user": "username3",
+      "caption": "Trying out this new recipe!",
+      "image": "path/to/image3.jpg",
+      "likes": 15,
+      "comments": [
+        {
+          "user": "username1",
+          "comment": "Looks delicious!"
+        }
+      ]
+    }
+  ]
