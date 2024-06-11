@@ -1,47 +1,107 @@
 import React, { useState } from 'react';
 
-function Post({ post, onLike, onAddComment }) {
-  const { id, content, image, likes, comments } = post;
-  const [newComment, setNewComment] = useState("");
+function Post({ post, addComment, addReply, updateReactions }) {
+  const { id, content, reactions, comments, image } = post;
+  const [commentText, setCommentText] = useState("");
+  const [replyText, setReplyText] = useState("");
+  const [replyingTo, setReplyingTo] = useState(null);
 
-  const handleLike = () => {
-    onLike(id);
+  const handleCommentChange = (e) => {
+    setCommentText(e.target.value);
   };
 
-  const handleAddComment = (e) => {
+  const handleCommentSubmit = (e) => {
     e.preventDefault();
-    if (newComment.trim()) {
-      onAddComment(id, newComment);
-      setNewComment("");
+    if (commentText.trim()) {
+      addComment(id, commentText);
+      setCommentText("");
     }
+  };
+
+  const handleReplyChange = (e) => {
+    setReplyText(e.target.value);
+  };
+
+  const handleReplySubmit = (e, commentId) => {
+    e.preventDefault();
+    if (replyText.trim()) {
+      addReply(id, commentId, replyText);
+      setReplyText("");
+      setReplyingTo(null);
+    }
+  };
+
+  const handleReaction = (emoji) => {
+    updateReactions(id, emoji);
+  };
+
+  const renderComments = (comments) => {
+    if (!comments || comments.length === 0) {
+      return null; // Return null if comments array is undefined, null, or empty
+    }
+
+    return comments.map(comment => (
+      <div key={comment.id} className="comment">
+        <p>{comment.text}</p>
+        <button onClick={() => setReplyingTo(comment.id)}>Reply</button>
+        {replyingTo === comment.id && (
+          <form onSubmit={(e) => handleReplySubmit(e, comment.id)}>
+            <input
+              type="text"
+              value={replyText}
+              onChange={handleReplyChange}
+              placeholder="Write a reply..."
+            />
+            <button type="submit">Submit</button>
+          </form>
+        )}
+        {comment.replies && comment.replies.length > 0 && (
+          <div className="replies">
+            {renderComments(comment.replies)}
+          </div>
+        )}
+      </div>
+    ));
   };
 
   return (
     <div className="post">
-      {image && <img src={image} alt="post" className="post-image" />}
       <p>{content}</p>
-      <div className="likes">
-        <span role="img" aria-label="like" onClick={handleLike}>❤️</span>
-        {likes} likes
+      {image && <img src={image} alt="Post" className="post-image" />}
+      <div className="reactions">
+        <button onClick={() => handleReaction('❤️')}>❤️</button>
+        <button onClick={() => handleReaction('👍')}>👍</button>
+        <button onClick={() => handleReaction('😂')}>😂</button>
+        <button onClick={() => handleReaction('😮')}>😮</button>
+        <button onClick={() => handleReaction('😢')}>😢</button>
+        <button onClick={() => handleReaction('😡')}>😡</button>
+        <div>
+          {reactions && Object.entries(reactions).map(([emoji, count]) => (
+            <span key={emoji}>{emoji} {count}</span>
+          ))}
+        </div>
       </div>
       <div className="comments">
-        {comments.map((comment, index) => (
-          <div key={index} className="comment">
-            <strong>{comment.user}</strong>: {comment.comment}
-          </div>
-        ))}
-        <form onSubmit={handleAddComment}>
-          <input 
-            type="text" 
-            value={newComment} 
-            onChange={(e) => setNewComment(e.target.value)} 
-            placeholder="Add a comment" 
-          />
-          <button type="submit">Comment</button>
-        </form>
+        {renderComments(comments)}
       </div>
+      <form onSubmit={handleCommentSubmit}>
+        <input
+          type="text"
+          value={commentText}
+          onChange={handleCommentChange}
+          placeholder="Write a comment..."
+        />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
 
 export default Post;
+
+
+
+
+
+
+

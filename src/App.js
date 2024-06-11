@@ -4,36 +4,79 @@ import Post from './Post';
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [newPostContent, setNewPostContent] = useState("");
-  const [newPostImage, setNewPostImage] = useState(null);
+  const [newPost, setNewPost] = useState("");
+  const [image, setImage] = useState(null);
 
   const handlePostChange = (e) => {
-    setNewPostContent(e.target.value);
+    setNewPost(e.target.value);
   };
 
   const handleImageChange = (e) => {
-    setNewPostImage(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.files[0]);
   };
 
   const handlePostSubmit = (e) => {
     e.preventDefault();
-    if (newPostContent.trim() || newPostImage) {
-      setPosts([{ content: newPostContent, image: newPostImage, id: Date.now(), likes: 0, comments: [] }, ...posts]);
-      setNewPostContent("");
-      setNewPostImage(null);
+    if (newPost.trim() || image) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPosts([{ content: newPost, id: Date.now(), reactions: {}, comments: [], image: reader.result }, ...posts]);
+        setNewPost("");
+        setImage(null);
+      };
+      if (image) {
+        reader.readAsDataURL(image);
+      } else {
+        reader.onloadend();
+      }
     }
   };
 
-  const handleLike = (postId) => {
-    setPosts(posts.map(post => 
-      post.id === postId ? { ...post, likes: post.likes + 1 } : post
-    ));
+  const addComment = (postId, commentText) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          comments: [...post.comments, { id: Date.now(), text: commentText, replies: [] }]
+        };
+      }
+      return post;
+    }));
   };
 
-  const handleAddComment = (postId, comment) => {
-    setPosts(posts.map(post => 
-      post.id === postId ? { ...post, comments: [...post.comments, { user: "current_user", comment }] } : post
-    ));
+  const addReply = (postId, commentId, replyText) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          comments: post.comments.map(comment => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                replies: [...comment.replies, { id: Date.now(), text: replyText }]
+              };
+            }
+            return comment;
+          })
+        };
+      }
+      return post;
+    }));
+  };
+
+  const updateReactions = (postId, emoji) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          reactions: {
+            ...post.reactions,
+            [emoji]: (post.reactions[emoji] || 0) + 1
+          }
+        };
+      }
+      return post;
+    }));
   };
 
   return (
@@ -45,25 +88,27 @@ function App() {
         <form onSubmit={handlePostSubmit} className="post-form">
           <input
             type="text"
-            value={newPostContent}
+            value={newPost}
             onChange={handlePostChange}
             placeholder="What's on your mind?"
             className="post-input"
           />
           <input
             type="file"
+            accept="image/*"
             onChange={handleImageChange}
-            className="post-input"
+            className="post-image-input"
           />
           <button type="submit" className="post-button">Post</button>
         </form>
         <div className="feed">
           {posts.map((post) => (
-            <Post 
-              key={post.id} 
-              post={post} 
-              onLike={handleLike} 
-              onAddComment={handleAddComment} 
+            <Post
+              key={post.id}
+              post={post}
+              addComment={addComment}
+              addReply={addReply}
+              updateReactions={updateReactions}
             />
           ))}
         </div>
@@ -73,3 +118,8 @@ function App() {
 }
 
 export default App;
+
+
+
+
+

@@ -6,7 +6,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ff7f50; /* Orange color */
   min-height: 10vh;
   display: flex;
   align-items: center;
@@ -61,72 +61,24 @@ main {
   border: 1px solid #ddd;
   padding: 20px;
   margin: 10px 0;
-  width: 500px; /* Set to match the image width */
+  width: 80%;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.post-image {
-  width: 500px;
-  height: 375px;
-  object-fit: cover; /* Adjusts the image to cover the container without stretching */
-  border-radius: 4px;
-  margin-bottom: 10px;
 }
 
 .post p {
   margin: 0;
 }
 
-.likes {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.likes span {
-  cursor: pointer;
-  margin-right: 5px;
-}
-
-.comments {
-  margin-top: 20px;
+/* Added CSS for image resizing */
+.post-image {
+  max-width: 500px;
+  max-height: 350px;
+  width: auto;
+  height: auto;
 }
 
 .comment {
-  margin-bottom: 10px;
-}
-
-.comments form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.comments input {
-  padding: 10px;
-  font-size: 14px;
-  width: 100%;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.comments button {
-  padding: 5px 10px;
-  font-size: 14px;
-  color: white;
-  background-color: #61dafb;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.image-preview {
-  width: 100px;
-  height: 75px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-top: 10px;
+  text-align: left;
 }
 
