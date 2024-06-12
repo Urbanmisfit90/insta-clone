@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Post from './Post';
+import Photos from './Photos';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -83,35 +85,46 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Instaclone</h1>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/photos">Photos</Link>
+        </nav>
       </header>
       <main>
-        <form onSubmit={handlePostSubmit} className="post-form">
-          <input
-            type="text"
-            value={newPost}
-            onChange={handlePostChange}
-            placeholder="What's on your mind?"
-            className="post-input"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="post-image-input"
-          />
-          <button type="submit" className="post-button">Post</button>
-        </form>
-        <div className="feed">
-          {posts.map((post) => (
-            <Post
-              key={post.id}
-              post={post}
-              addComment={addComment}
-              addReply={addReply}
-              updateReactions={updateReactions}
-            />
-          ))}
-        </div>
+        <Routes>
+          <Route path="/" element={
+            <div>
+              <form onSubmit={handlePostSubmit} className="post-form">
+                <input
+                  type="text"
+                  value={newPost}
+                  onChange={handlePostChange}
+                  placeholder="What's on your mind?"
+                  className="post-input"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="post-image-input"
+                />
+                <button type="submit" className="post-button">Post</button>
+              </form>
+              <div className="feed">
+                {posts.map((post) => (
+                  <Post
+                    key={post.id}
+                    post={post}
+                    addComment={addComment}
+                    addReply={addReply}
+                    updateReactions={updateReactions}
+                  />
+                ))}
+              </div>
+            </div>
+          } />
+          <Route path="/photos" element={<Photos posts={posts} />} />
+        </Routes>
       </main>
     </div>
   );

@@ -1,108 +1,93 @@
 body {
-  background-color: #F0F2F5;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* App header styling */
 .App-header {
-  background-color: #4267B2;
+  background-color: #282c34;
+  padding: 20px;
   color: white;
-  padding: 10px 20px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
-
-.App-header h1 {
-  margin: 0;
-  font-size: 1.5em;
-}
-
-/* Main Content */
-main {
-  padding: 70px 20px 20px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.App-header nav a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.App-header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Post component styling */
+.post-image {
+  width: 500px;
+  height: 375px;
+  object-fit: contain; /* Ensures the image fits within the area without cropping */
+  border-radius: 5px;
+}
+
+/* Photos component styling */
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(162.4px, 1fr));
+  gap: 10px;
   justify-content: center;
 }
 
+.photo-item img {
+  width: 162.4px;
+  height: 162.4px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Feed styling */
 .feed {
-  width: 600px;
-  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.post {
-  background: white;
-  border: 1px solid #dddfe2;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 10px 0;
-  padding: 15px;
-}
-
-.post p {
-  margin: 10px 0;
-}
-
-.post-image {
-  width: 100%;
-  border-radius: 8px;
-}
-
-/* Form Styles */
+/* Post form styling */
 .post-form {
-  background: white;
-  border: 1px solid #dddfe2;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.post-input,
-.post-image-input {
-  width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ccd0d5;
-  border-radius: 8px;
-  font-size: 14px;
+.post-input, .post-image-input {
+  margin-bottom: 10px;
 }
 
 .post-button {
-  background-color: #4267B2;
-  color: white;
-  border: none;
   padding: 10px 20px;
-  border-radius: 8px;
+  background-color: #61dafb;
+  border: none;
   cursor: pointer;
 }
 
 .post-button:hover {
-  background-color: #365899;
+  background-color: #21a1f1;
 }
 
-/* Comment and Reaction Styles */
-.comments {
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid #e9ebee;
-}
-
-.comment {
-  margin-top: 10px;
-}
-
-.reactions {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.reactions button {
-  background: none;
-  border: none;
-  cursor: pointer;
+/* Post comments and reactions styling */
+.comment-form input {
   margin-right: 10px;
-  font-size: 1.2em;
+}
+
+.post-reactions span {
+  margin-right: 10px;
+  cursor: pointer;
 }
