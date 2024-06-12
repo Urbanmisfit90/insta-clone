@@ -15,8 +15,12 @@ code {
   padding: 20px;
   color: white;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Added flex-direction: column to stack elements vertically */
   align-items: center;
+}
+
+.App-header nav {
+  justify-content: center;
 }
 
 .App-header nav a {
