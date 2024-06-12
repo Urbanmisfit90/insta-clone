@@ -37,7 +37,7 @@ function Post({ post, addComment, addReply, updateReactions }) {
 
   const renderComments = (comments) => {
     if (!comments || comments.length === 0) {
-      return null; // Return null if comments array is undefined, null, or empty
+      return null;
     }
 
     return comments.map(comment => (
@@ -98,10 +98,4 @@ function Post({ post, addComment, addReply, updateReactions }) {
 }
 
 export default Post;
-
-
-
-
-
-
 
