@@ -30,11 +30,36 @@ code {
 }
 
 /* Post component styling */
+.post {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 90%;
+  max-width: 600px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .post-image {
   width: 500px;
   height: 375px;
   object-fit: contain; /* Ensures the image fits within the area without cropping */
   border-radius: 5px;
+  margin-bottom: 10px; /* Add some space between the image and the caption */
+}
+
+.post-caption {
+  font-style: italic;
+  color: gray;
+  text-align: center;
+  margin-bottom: 10px; /* Add some space between the caption and the reactions */
 }
 
 /* Photos component styling */
@@ -67,7 +92,7 @@ code {
   align-items: center;
 }
 
-.post-input, .post-image-input {
+.post-input, .post-image-input, .post-caption-input {
   margin-bottom: 10px;
 }
 
@@ -83,11 +108,35 @@ code {
 }
 
 /* Post comments and reactions styling */
+.comment-form {
+  display: flex;
+  align-items: center;
+}
+
 .comment-form input {
   margin-right: 10px;
+  flex-grow: 1;
+}
+
+.post-reactions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; /* Add some space between reactions and comments */
 }
 
 .post-reactions span {
   margin-right: 10px;
   cursor: pointer;
+}
+
+.post-comments {
+  width: 100%;
+}
+
+.comment {
+  margin-bottom: 10px;
+}
+
+.reply {
+  margin-left: 20px;
 }
