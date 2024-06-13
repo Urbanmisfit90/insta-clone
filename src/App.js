@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Post from './Post';
 import Photos from './Photos';
+import './Post.css'; // Ensure this path is correct
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState("");
   const [image, setImage] = useState(null);
+
+  // Load posts from local storage on mount
+  useEffect(() => {
+    const savedPosts = localStorage.getItem('posts');
+    if (savedPosts) {
+      setPosts(JSON.parse(savedPosts));
+    }
+  }, []);
+
+  // Save posts to local storage whenever they change
+  useEffect(() => {
+    localStorage.setItem('posts', JSON.stringify(posts));
+  }, [posts]);
 
   const handlePostChange = (e) => {
     setNewPost(e.target.value);
@@ -81,6 +95,10 @@ function App() {
     }));
   };
 
+  const deletePost = (postId) => {
+    setPosts(posts.filter(post => post.id !== postId));
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -118,6 +136,7 @@ function App() {
                     addComment={addComment}
                     addReply={addReply}
                     updateReactions={updateReactions}
+                    deletePost={deletePost}
                   />
                 ))}
               </div>
@@ -131,8 +150,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-

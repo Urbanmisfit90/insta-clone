@@ -11,7 +11,7 @@ code {
 
 /* App header styling */
 .App-header {
-  background-color: #282c34;
+  background-color: #4267B2;;
   padding: 20px;
   color: white;
   display: flex;
@@ -143,4 +143,21 @@ code {
 
 .reply {
   margin-left: 20px;
+}
+
+.image-wrapper {
+  overflow: hidden;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: darkred;
 }
