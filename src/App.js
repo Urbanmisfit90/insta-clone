@@ -10,19 +10,6 @@ function App() {
   const [newPost, setNewPost] = useState("");
   const [image, setImage] = useState(null);
 
-  // Load posts from local storage on mount
-  useEffect(() => {
-    const savedPosts = localStorage.getItem('posts');
-    if (savedPosts) {
-      setPosts(JSON.parse(savedPosts));
-    }
-  }, []);
-
-  // Save posts to local storage whenever they change
-  useEffect(() => {
-    localStorage.setItem('posts', JSON.stringify(posts));
-  }, [posts]);
-
   const handlePostChange = (e) => {
     setNewPost(e.target.value);
   };
