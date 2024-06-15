@@ -3,7 +3,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Post from './Post';
 import Photos from './Photos';
-import './Post.css'; // Ensure this path is correct
+import './Post.css';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -137,3 +137,4 @@ function App() {
 }
 
 export default App;
+
